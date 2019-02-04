@@ -22,6 +22,15 @@ set FLASK_ENV=development
 flask run
 ```
 
+You must add an `instance/settings.cfg`. Here is an example:
+
+```
+SECRET_KEY='hotpotato123'
+SQLALCHEMY_DATABASE_URI='sqlite:///../instance/www.db'
+```
+
+Basically, you need to set `SECRET_KEY` and `SQLALCHEMY_DATABASE_URI`.
+
 Instead of `flask run`, there are some other commands:
 
 * `add-admin`: Adds an admin account. Takes `--name`, `--email`, and `--password`.
