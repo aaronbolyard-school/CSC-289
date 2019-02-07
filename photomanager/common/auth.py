@@ -48,7 +48,7 @@ def login(email, password):
 	if not user:
 		return False
 
-	if not check_password_hash(password, user.password):
+	if not check_password_hash(user.password, password):
 		return False
 
 	login_user(LoggedInUser(user))
