@@ -3,7 +3,7 @@ from flask import (
     request, session, url_for, abort
 )
 
-bp = Blueprint('login', __name__, url_prefix='/')
+bp = Blueprint('home', __name__, url_prefix='/')
 
 @bp.route('/')
 @bp.route('/home')
