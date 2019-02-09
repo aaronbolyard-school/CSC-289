@@ -1,6 +1,6 @@
 from flask import (
 	Blueprint, flash, g, redirect, render_template,
-    request, session, url_for, abort
+    request, session, url_for
 )
 
 bp = Blueprint('home', __name__, url_prefix='/')
@@ -8,4 +8,4 @@ bp = Blueprint('home', __name__, url_prefix='/')
 @bp.route('/')
 @bp.route('/home')
 def index():
-	abort(404)
+        return render_template("home.html")
