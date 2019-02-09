@@ -11,7 +11,7 @@ bp = Blueprint('login', __name__, url_prefix='/login')
 @bp.route('/', methods=['GET','POST'])
 def index():
         form = LoginForm()
-        if form.validate_on_submit:
+        if form.validate_on_submit():
                 if login(form.username.data, form.password.data):
                         flash("Successfully Logged in!")
                         return redirect(url_for("home.index"))
