@@ -8,11 +8,13 @@
 	
 	<body>
 		<h1>Home</h1>
+		
+		{{ utils.flashed_messages() }}
 	
 		<nav style="text-align:center;"><b>
-		<a href ="home.html">Home</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-		<a href="login.html">Login</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-		<a href="register.html">Register</a>
+		<a href ="{{ url_for('home.index') }}">Home</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+		<a href="{{ url_for('login.index') }}">Login</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+		<a href="{{ url_for('register.index') }}">Register</a>
 		</nav>
 		
 	</body>

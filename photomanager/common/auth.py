@@ -36,6 +36,10 @@ def init_app(app):
 		return LoggedInUser(user)
 
 def create_user(email, name, password):
+	user = User.query.filter_by(email=email).first()
+	if user:
+		return False
+
 	password = generate_password_hash(password)
 
 	db = get_database()
