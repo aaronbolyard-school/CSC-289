@@ -42,7 +42,8 @@ def create_user(email, name, password):
 	user = User(email=email, name=name, password=password)
 	db.session.add(user)
 	db.session.flush()
-
+	return True
+	
 def login(email, password):
 	user = User.query.filter_by(email=email).first()
 	if not user:

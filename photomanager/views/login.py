@@ -1,3 +1,4 @@
+
 from photomanager.common.auth import login
 from photomanager.forms.login_form import LoginForm
 from flask import (
