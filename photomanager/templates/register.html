@@ -1,19 +1,8 @@
-{% import 'bootstrap/wtf.html' as wtf %}
-{% import 'bootstrap/utils.html' as utils %}
-<html>
-	<head>
-		<title>register</title>
-		<link href="{{bootstrap_find_resource('css/bootstrap.css', cdn='bootstrap')}}" rel="stylesheet">
-	</head>
-	
-	<body>
-		<h1>register</h1>
-		
-		{{ utils.flashed_messages() }}
-		
-		<div class="container">
-			<h2>Enter your details:</h2>
-			{{ wtf.quick_form(form) }}
-		</div>
-	</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}Login - Photo Manager{% endblock %}
+{% block header %}<h1>Register</h1>{% endblock %}
+
+{% block content %}
+<h2>Enter your details:</h2>
+{{ wtf.quick_form(form) }}
+{% endblock %}
