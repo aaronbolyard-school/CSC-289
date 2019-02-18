@@ -1,21 +1,15 @@
-{% import 'bootstrap/wtf.html' as wtf %}
-{% import 'bootstrap/utils.html' as utils %}
-<html>
-	<head>
-		<title>Home</title>
-		<link href="{{bootstrap_find_resource('css/bootstrap.css', cdn='bootstrap')}}" rel="stylesheet">
-	</head>
-	
-	<body>
-		<h1>Home</h1>
-		
-		{{ utils.flashed_messages() }}
-	
-		<nav style="text-align:center;"><b>
-		<a href ="{{ url_for('home.index') }}">Home</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-		<a href="{{ url_for('login.index') }}">Login</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-		<a href="{{ url_for('register.index') }}">Register</a>
-		</nav>
-		
-	</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}Photo Manager{% endblock %}
+{% block navbar_items %}
+<li class="nav-item">
+	<a class="navbar-brand" href="{{ url_for('login.index') }}">Login</a>
+	<a class="navbar-brand" href="{{ url_for('register.index') }}">Register</a>
+</li>
+{% endblock %}
+{% block header %}<h1>Home</h1>{% endblock %}
+
+{% block content %}
+<p>
+	Welcome to Photo Manager!
+</p>
+{% endblock %}
