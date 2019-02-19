@@ -1,3 +1,3 @@
 from flask import Blueprint
 
-bp = Blueprint('photo', __name__, 'photos')
+bp = Blueprint('photos', __name__, url_prefix='/photos')
