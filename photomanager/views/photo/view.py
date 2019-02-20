@@ -9,6 +9,7 @@ from photomanager.views.photo.bp import bp
 
 @bp.route('/view')
 def view():
+	pass
 	# use current_user.get_user().id with
 	# use Photo.query.filter_by to find all 
 	# photos of the user
@@ -16,7 +17,8 @@ def view():
 	# render template "view" with photos
 
 @bp.route('/view/<int:photo_id>')
-def single_view(photo_id)
+def single_view(photo_id):
+	pass
 	# use Photo.query.filter_by to find a photo with
 	# photo_id
 	#

@@ -35,5 +35,8 @@ def create_app(test_config=None):
 	app.register_blueprint(photomanager.views.home.bp)
 	import photomanager.views.register
 	app.register_blueprint(photomanager.views.register.bp)
+	import photomanager.views.photo.main
+	import photomanager.views.photo.bp
+	app.register_blueprint(photomanager.views.photo.bp.bp)
 
 	return app

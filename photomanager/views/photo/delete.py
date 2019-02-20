@@ -15,6 +15,7 @@ from photomanager.views.photo.bp import bp
 
 @bp.route('/delete/confirm/<int:photo_id>')
 def confirm_delete(photo_id):
+	pass
 	# ask the user to delete the photo
 	# if they click yes delete photo
 	# if not return to view of photo
@@ -22,5 +23,6 @@ def confirm_delete(photo_id):
 	# to actually delete the photo
 
 @bp.route('/delete/perform/<int:photo_id>')
-def perform_delete(photo_id)
+def perform_delete(photo_id):
+	pass
 	# call Photo.delete on Photo object to perform delete
