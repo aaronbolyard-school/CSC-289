@@ -1,28 +1,40 @@
 from flask import (
-	flash, g, redirect, render_template,
-    request, session, url_for
+        Blueprint, flash, g, redirect, render_template,
+        request, session, url_for
+        )
+
+from flasklogin import (
+    current_user, login_required
 )
 
-from photomanager.views.photo.bp import bp
-# import Photo
-# import get_database from common database module
-# import current_user from flask login
-# whenever deleting a photo make sure the user_id of
-# the photo matches current_user.get_user().id!
+from photomanager.common.photo import delete_photo
 
-# refer to view routes (photomanager/views/photo/view.py)
-# for pseudo-code on how to get photos
+
+
+
+
+bp = Blueprint('home', __name__, url_prefix= '/')
+
+from photomanager.views.phot.bp import bp
+from photomanager.common.database import get_database
+from photomanager.model.user import user
 
 @bp.route('/delete/confirm/<int:photo_id>')
+@login_required
 def confirm_delete(photo_id):
-	pass
-	# ask the user to delete the photo
-	# if they click yes delete photo
-	# if not return to view of photo
-	# you can use url_for('delete/perform', photo_id=photo_id)
-	# to actually delete the photo
+    photo = Photo.query.filter_by(id=photo_id).first()
+    if photo.user_id != current_user.get_user().id:
+        return abort(404)
+    else:
+        return render_template('photo/confirm_delete.html", photo=photo')
 
 @bp.route('/delete/perform/<int:photo_id>')
+@login_required
 def perform_delete(photo_id):
-	pass
-	# call Photo.delete on Photo object to perform delete
+    photo = Photo.query.filter_by(id=photo_id).first()
+    if photo.user_id != current_user.get_user().id:
+        return abort(404)
+    else:
+        delete_photo(photo)
+        return redirect(url_for("photos.view"))
+        
