@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}View - Photo Manager{% endblock %}
+{% block header %}<h1>View Photos</h1>{% endblock %}
+{% block content %}
+<ul>
+{% for photo in photos %}
+<li>
+{{ photo.name }}
+</li>
+{$ endfor %}
+</ul>
+{% endblock %}
