@@ -1,12 +1,12 @@
-{% extends 'base.html' %}
+{% extends 'photo/base.html' %}
 {% block title %}View - Photo Manager{% endblock %}
 {% block header %}<h1>View Photos</h1>{% endblock %}
 {% block content %}
 <ul>
 {% for photo in photos %}
 <li>
-{{ photo.name }}
+<a href="{{ url_for('photos.single_view', photo_id=photo.id) }}">{{ photo.name }}</a>
 </li>
-{$ endfor %}
+{% endfor %}
 </ul>
 {% endblock %}
