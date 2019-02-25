@@ -1,30 +1,26 @@
 from flask import (
 	flash, g, redirect, render_template,
-    request, session, url_for
+    request, session, url_for, abort
 )
+from flask_login import current_user, login_required
 
 from photomanager.views.photo.bp import bp
-# import Photo
-# import current_user from flask login
+from photomanager.model.photo import Photo
+from photomanager.model.user import User
 
 @bp.route('/view')
+@login_required
 def view():
-	pass
-	# use current_user.get_user().id with
-	# use Photo.query.filter_by to find all 
-	# photos of the user
-	#
-	# render template "view" with photos
+	photos = Photo.query.filter_by(user_id=current_user.get_user().id).all()
+	
+	return render_template("photo/view.html", photos=photos)
 
 @bp.route('/view/<int:photo_id>')
+@login_required
 def single_view(photo_id):
-	pass
-	# use Photo.query.filter_by to find a photo with
-	# photo_id
-	#
-	# make sure the current_user matches the user_id
-	# of the fetched photo
-	#
-	# if not return abort(404)
-	#
-	# otherwise return render template "view_single" with photo
+	photo = Photo.query.filter_by(id=photo_id).first()
+	
+	if photo.user_id != current_user.get_user().id:
+		return abort(404)
+	else:
+		return render_template("photo/view_single.html", photo=photo)
