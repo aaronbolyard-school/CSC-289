@@ -4,5 +4,12 @@
 {% block content %}
 <h2>{{ photo.name }}</h2>
 <img style="display: block;max-width: 800px;height: auto;margin-bottom: 16px;" src="{{ url_for('photos.image', photo_id=photo.id) }}" alt="{{ photo.name}}">
+<ul>
+{% for tag in photo.tags %}
+<li>
+{{ tag }}
+</li>
+{$ endfor %}
+</ul>
 <a class="btn btn-danger" href="{{ url_for('photos.confirm_delete', photo_id=photo.id) }}">Delete</a>
 {% endblock %}
