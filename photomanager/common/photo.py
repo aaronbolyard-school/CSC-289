@@ -101,7 +101,7 @@ def delete_photo(photo):
 	The photo is removed from storage as well.
 	"""
 
-	filename = "%s/%s" % (current_app.instance_path, local_filename)
+	filename = "%s/%s" % (current_app.instance_path, photo.url)
 	try:
 		os.remove(filename)
 	except:
@@ -109,5 +109,5 @@ def delete_photo(photo):
 		pass
 
 	db = get_database()
-	db.session.delete()
+	db.session.delete(photo)
 	db.session.commit()

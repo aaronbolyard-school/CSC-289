@@ -4,6 +4,7 @@ from flask import (
 )
 from flask_login import current_user, login_required
 
+from photomanager.common.photo import send_photo
 from photomanager.views.photo.bp import bp
 from photomanager.model.photo import Photo
 from photomanager.model.user import User
@@ -24,3 +25,12 @@ def single_view(photo_id):
 		return abort(404)
 	else:
 		return render_template("photo/view_single.html", photo=photo)
+
+@bp.route('/get/<int:photo_id>')
+@login_required
+def image(photo_id):
+	result = send_photo(photo_id)
+	if not result:
+		return abort(404)
+	else:
+		return result

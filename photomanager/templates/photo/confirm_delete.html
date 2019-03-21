@@ -1,0 +1,8 @@
+{% extends 'photo/base.html' %}
+{% block title %}Delete - Photo Manager{% endblock %}
+{% block header %}<h1>Delete Photo</h1>{% endblock %}
+{% block content %}
+<p>Are you sure you want to delete the photo?</p>
+<a class="btn btn-danger" href="{{ url_for('photos.perform_delete', photo_id=photo.id) }}">Confirm</a>
+<a class="btn btn-primary" href="{{ url_for('photos.single_view', photo_id=photo.id) }}">Cancel</a>
+{% endblock %}
