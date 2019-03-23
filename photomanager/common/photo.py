@@ -6,6 +6,7 @@ from flask_login import current_user
 
 from photomanager.common.database import get_database
 from photomanager.model.photo import Photo
+from photomanager.model.photoTag import PhotoTag
 from photomanager.model.tag import Tag
 
 def tag_photo(photo_id, tag_name, user_id=None):
@@ -22,8 +23,8 @@ def tag_photo(photo_id, tag_name, user_id=None):
 	if not photo:
 		return False
 
-	tag_name = tag.trim().lower()
-	tag = Tag.filter_by(tag=tag_name).first()
+	tag_name = tag_name.strip().lower()
+	tag = Tag.query.filter_by(tag=tag_name).first()
 	if not tag:
 		tag = Tag(tag=tag_name)
 		db.session.add(tag)
@@ -50,12 +51,12 @@ def untag_photo(photo_id, tag_name, user_id=None):
 	if not photo:
 		return False
 
-	tag_name = tag.trim().lower()
-	tag = Tag.filter_by(tag=tag_name).first()
+	tag_name = tag_name.strip().lower()
+	tag = Tag.query.filter_by(tag=tag_name).first()
 	if not tag:
 		return True
 
-	photo_tag = PhotoTag.filter_by(tag_id=tag.id, photo_id=photo.id).first()
+	photo_tag = PhotoTag.query.filter_by(tag_id=tag.id, photo_id=photo.id).first()
 
 	if photo_tag:
 		db.session.delete(photo_tag)
