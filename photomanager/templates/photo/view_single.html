@@ -9,9 +9,9 @@
 <ul>
 {% for tag in photo.tags %}
 <li>
-{{ tag }}
+{{ tag.tag.tag }}
 </li>
-{$ endfor %}
+{% endfor %}
 </ul>
 <a class="btn btn-danger" href="{{ url_for('photos.confirm_delete', photo_id=photo.id) }}">Delete</a>
 {% endblock %}
