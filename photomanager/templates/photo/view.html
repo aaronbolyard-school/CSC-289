@@ -2,6 +2,7 @@
 {% block title %}View - Photo Manager{% endblock %}
 {% block header %}<h1>View Photos</h1>{% endblock %}
 {% block content %}
+{{ wtf.quick_form(form) }}
 <ul>
 {% for photo in photos %}
 <li>
