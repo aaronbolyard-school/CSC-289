@@ -63,6 +63,20 @@ def untag_photo(photo_id, tag_name, user_id=None):
 
 	return True
 
+def get_tagged_photos(tag_name, user_id=None):
+	db = get_database()
+
+	if user_id == None:
+		user_id = current_user.get_user().id
+
+	tag_name = tag_name.strip().lower()
+
+	return (db.session.query(Photo, PhotoTag, Tag)
+		.filter(Tag.tag == tag_name)
+		.filter(PhotoTag.tag_id == Tag.id)
+		.filter(PhotoTag.photo_id == Photo.id)
+		.all())
+
 def get_photo(photo_id, user_id=None):
 	"""
 	Gets an existing photo.
