@@ -10,6 +10,7 @@ from photomanager.model.photo import Photo
 from photomanager.model.user import User
 from photomanager.forms.add_tag_form import AddTagForm
 from photomanager.forms.query_tag_form import QueryTagForm
+from photomanager.common.folder import get_folders
 
 @bp.route('/view', methods=("GET", "POST"))
 @login_required
@@ -17,6 +18,7 @@ def view():
 	form = QueryTagForm()
 
 	photos = None
+	folders = get_folders()
 	if form.validate_on_submit():
 		tags = form.query.data.split(",")
 		photos = []
@@ -30,7 +32,7 @@ def view():
 	else:
 		photos = Photo.query.filter_by(user_id=current_user.get_user().id).all()
 	
-	return render_template("photo/view.html", photos=photos, form=form)
+	return render_template("photo/view.html", photos=photos, form=form, folders=folders)
 
 @bp.route('/view/<int:photo_id>', methods=("GET", "POST"))
 @login_required
@@ -38,10 +40,10 @@ def single_view(photo_id):
 	form = AddTagForm()
 	photo = Photo.query.filter_by(id=photo_id).first()
 	
-	#if photo.user_id != current_user.get_user().id:
-	#	abort(404)
-	#else:
-	if form.validate_on_submit():
+	if photo.user_id != current_user.get_user().id:
+		abort(404)
+	else:
+		if form.validate_on_submit():
 			tag_photo(photo_id, form.tag.data)
 			flash("Added Tag")
 	return render_template("photo/view_single.html", photo=photo, form=form)

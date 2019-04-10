@@ -10,4 +10,13 @@
 </li>
 {% endfor %}
 </ul>
+<h2>Folders</h2>
+<ul>
+{% for folder in folders %}
+<li>
+{{ folder.name }}
+<a class="btn btn-danger" href="{{ url_for('folder.confirm_delete', folder_id=folder.id) }}">Delete</a>
+</li>
+{% endfor %}
+</ul>
 {% endblock %}
