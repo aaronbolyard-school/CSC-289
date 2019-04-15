@@ -1,0 +1,8 @@
+{% extends 'photo/base.html' %}
+{% block title %}Delete - Folder Manager{% endblock %}
+{% block header %}<h1>Delete Folder</h1>{% endblock %}
+{% block content %}
+<p>Are you sure you want to delete this folder?</p>
+<a class="btn btn-danger" href="{{ url_for('folder.perform_delete', folder_id=folder.id) }}">Confirm</a>
+<a class="btn btn-primary" href="{{ url_for('photos.view') }}">Cancel</a>
+{% endblock %}

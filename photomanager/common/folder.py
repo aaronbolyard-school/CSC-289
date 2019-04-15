@@ -58,7 +58,7 @@ def delete_folder(folder, user_id=None):
 		return False
 
 	db = get_database()
-	photos = FolderPhoto.query.filter_by(foler_id=folder.id).all()
+	photos = FolderPhoto.query.filter_by(folder_id=folder.id).all()
 	for photo in photos:
 		db.session.delete(photo)
 	db.session.delete(folder)
@@ -78,3 +78,11 @@ def add_folder(name, user_id=None):
 	db.session.commit()
 
 	return folder
+
+def get_folders(user_id=None):
+	if user_id == None:
+		user_id = current_user.get_user().id
+		
+	folders = Folder.query.filter_by(user_id=user_id).all()
+	
+	return folders
