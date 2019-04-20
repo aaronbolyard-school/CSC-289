@@ -1,22 +1,36 @@
 {% extends 'photo/base.html' %}
 {% block title %}View - Photo Manager{% endblock %}
-{% block header %}<h1>View Photos</h1>{% endblock %}
+{% block header %}
+	{% if folder %}
+		<h1>{{ folder.name }}</h1>
+	{% else %}
+		<h1>View Photos</h1>
+	{% endif %}
+{% endblock %}
 {% block content %}
 {{ wtf.quick_form(form) }}
-<ul>
-{% for photo in photos %}
-<li>
-<a href="{{ url_for('photos.single_view', photo_id=photo.id) }}">{{ photo.name }}</a>
-</li>
-{% endfor %}
-</ul>
-<h2>Folders</h2>
-<ul>
-{% for folder in folders %}
-<li>
-{{ folder.name }}
-<a class="btn btn-danger" href="{{ url_for('folder.confirm_delete', folder_id=folder.id) }}">Delete</a>
-</li>
-{% endfor %}
-</ul>
+{% if photos|length == 0 %}
+	<p><b>There are no photos.</b></p>
+{% else %}
+	<ul>
+		{% for photo in photos %}
+		<li>
+			<a href="{{ url_for('photos.single_view', photo_id=photo.id) }}">{{ photo.name }}</a>
+		</li>
+		{% endfor %}
+	</ul>
+{% endif %}
+{% if folder %}
+	<a class="btn btn-primary" href="{{ url_for('photos.view') }}">Back</a>
+{% else %}
+	<h2>Folders</h2>
+	<ul>
+	{% for folder in folders %}
+	<li>
+	<a class="btn" href="{{ url_for('photos.view', folder_id=folder.id) }}">{{ folder.name }}</a> <a class="btn btn-danger" href="{{ url_for('folder.confirm_delete', folder_id=folder.id) }}">Delete</a>
+	</li>
+	{% endfor %}
+	</ul>
+	<a class="btn btn-primary" href="{{ url_for('folder.add') }}">Add Folder</a>
+{% endif %}
 {% endblock %}

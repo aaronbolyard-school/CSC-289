@@ -8,7 +8,7 @@ Run these commands (assuming Windows 10 & PowerShell):
 python -m venv venv
 cmd
 venv\Scripts\activate.bat
-pip install flask flask_sqlalchemy flask_login flask_wtf flask_bootstrap
+pip install flask flask_sqlalchemy flask_login flask_wtf flask_bootstrap google-cloud-vision
 ```
 
 ## Running

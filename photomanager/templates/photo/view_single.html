@@ -4,7 +4,9 @@
 {% block content %}
 <h2>{{ photo.name }}</h2>
 <img style="display: block;max-width: 800px;height: auto;margin-bottom: 16px;" src="{{ url_for('photos.image', photo_id=photo.id) }}" alt="{{ photo.name}}">
-{{ wtf.quick_form(form) }}
+{{ wtf.quick_form(tagForm) }}
+<br>
+{{ wtf.quick_form(folderForm) }}
 <br>
 <ul>
 {% for tag in photo.tags %}

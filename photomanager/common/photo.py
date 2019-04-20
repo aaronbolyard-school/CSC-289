@@ -4,6 +4,9 @@ from flask import (
 )
 from flask_login import current_user
 
+from google.cloud import vision as google_vision
+from google.cloud.vision import types as google_types
+
 from photomanager.common.database import get_database
 from photomanager.model.photo import Photo
 from photomanager.model.photoTag import PhotoTag
@@ -162,6 +165,22 @@ def upload_new_photo(name, file, user_id=None):
 
 	return photo
 
+def update_photo_tags(photo, filename):
+	client = google_vision.ImageAnnotatorClient()
+
+	content = None
+	with open(filename, "rb") as file:
+		content = file.read()
+
+	image = google_types.Image(content=content)
+	response = client.label_detection(image=image)
+	labels = response.label_annotations
+
+	for label in labels:
+		if label.score > 0.5:
+			tag_photo(photo.id, label.description)
+	
+
 def upload_existing_photo(photo, file):
 	"""
 	Overwrites an existing photo.
@@ -181,6 +200,9 @@ def upload_existing_photo(photo, file):
 		pass
 
 	file.save(filename)
+
+	# Update tags from Google
+	update_photo_tags(photo, filename)
 
 	# Update photo
 	photo.url = local_filename
