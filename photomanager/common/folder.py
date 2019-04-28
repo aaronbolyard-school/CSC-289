@@ -15,7 +15,7 @@ def add_photo_to_folder(photo, folder, user_id=None):
 	if photo.user_id != user_id:
 		return False
 
-	folderPhoto = FolderPhoto(user_id=user.id, folder_id=folder.id)
+	folderPhoto = FolderPhoto(photo_id=photo.id, folder_id=folder.id)
 
 	db = get_database()
 	db.session.add(folderPhoto)
@@ -71,6 +71,10 @@ def add_folder(name, user_id=None):
 		user_id = current_user.get_user().id
 
 	name = name.strip()
+
+	folder = Folder.query.filter_by(name=name, user_id=user_id).first()
+	if folder:
+		return folder
 
 	folder = Folder(name=name, user_id=user_id)
 	db = get_database()

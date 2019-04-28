@@ -17,11 +17,9 @@ def add():
 	if form.validate_on_submit():
 		if add_folder(form.folder.data):
 			flash("Added Folder")
+
+			return redirect(url_for("photos.view"))
 		else:
 			flash("Failed to add folder. Folder may already exist.")
 
 	return render_template("folder/add.html", form=form)
-
-
-
-
